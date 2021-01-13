@@ -89,13 +89,51 @@
           if($(this).val()==1){
               //Show Single
               $('#date_div').show();
+
               $('#date_').show();
+              if($('#ldrShow').val()==1){
+                  //Show Single
+                  $('#cumm_single').show();
+                  $('#team_cuml').hide();
+                  $('#cumm_solo').hide();
+                  $('#team_single_day').hide();
+                  $('#filter_single').hide();
+              }else{
+                  //Show Cumm
+
+                  $('#cumm_single').hide();
+                  $('#team_cuml').hide();
+                  $('#cumm_solo').hide();
+                  $('#team_single_day').show();
+                  $('#filter_single').hide();
+                  
+                  
+                  
+                  console.log(" Date: "+date);
+              }
           }else{
+
             window.location.href="<?=base_url('Report/viewLeaderboard').'?event_id='.$event_id?>";
-            // Show Cumm
-            $('#date_').show();
-            $('#date_div').hide();
+              // Show Cumm
+              $('#date_').show();
+              $('#date_div').hide();
               // $('.single_day_leader').hide();
+              if($('#ldrShow').val()==1){
+                  //Show Single
+                  $('#cumm_single').hide();
+                  $('#team_cuml').hide();
+                  $('#cumm_solo').show();
+                  $('#team_single_day').hide();
+                  $('#filter_single').hide();
+              }else{
+                  //Show Cumm
+                  $('#cumm_single').hide();
+                  $('#team_cuml').show();
+                  $('#cumm_solo').hide();
+                  $('#team_single_day').hide();
+                  $('#filter_single').hide();
+              }
+              
           }
       });
       $(document).on('change','#ldrShow',function(){
@@ -106,15 +144,54 @@
         $('#team_single_day').hide();
           if(l_Value==1){
               console.log("Solo");
-             
+              if($('#ChDate').val()==1){
+                  //Show Single
+                  $('#cumm_single').show();
+                  $('#team_cuml').hide();
+                  $('#cumm_solo').hide();
+                  $('#team_single_day').hide();
+                  $('#filter_single').hide();
+              }else{
+                  //Show Cumm
+                  $('#cumm_single').hide();
+                  $('#team_cuml').hide();
+                  $('#cumm_solo').show();
+                  $('#team_single_day').hide();
+                  $('#filter_single').hide();
+              }
           }else if(l_Value==2){
               console.log("Team");
-              
+              if($('#ChDate').val()==1){
+                  //Show Single
+                  $('#cumm_single').hide();
+                  $('#team_cuml').hide();
+                  $('#cumm_solo').hide();
+                  $('#team_single_day').show();
+                  $('#filter_single').hide();
+                  console.log(" Date: "+date);
+                  // cumm_single
+              }else{
+                  //Show Cumm
+                  $('#cumm_single').hide();
+                  $('#team_cuml').show();
+                  $('#cumm_solo').hide();
+                  $('#team_single_day').hide();
+                  $('#filter_single').hide();
+              }
           }else{
               console.log("Continent");
-             
+              // if($('#ChDate').val()==1){
+              //     //Show Single
+              // }else{
+              //     //Show Cumm
+              // }
           }
-        
+          // if($(this).val()==1 && $('#ChDate').val()==1){
+              
+          //     $('#single_day_leader').show();
+          // }else if($(this).val()==1 && $('#ChDate').val()==2){
+          //     $('#cum_ldr_brd').hide();
+          // }
       });
        
 </script>
@@ -129,7 +206,16 @@
   $('#filter').on('change',function(){
       var filter_val=$(this).val();
       console.log(" Filter Value : "+filter_val+' Fetch Data For : '+date);
-    
+      $('#team_cuml').hide();
+         $('#cumm_single').hide();
+         
+         cumm_single
+         $('#cumm_solo').hide();
+         $('#team_single_day').hide();
+      $('#filter_single').show();
+      // if(){
+          
+      // }
       $.ajax({
           url:"<?=base_url('User/fetchDataByFilter')?>",
           type:"post",
@@ -254,7 +340,7 @@
                         <div class="col-md-3">
                             <label>Choose Leaderboard</label>
                             <select class="form-control" id="ldrShowType">
-                                <option selected disabled >Select</option>
+                                <option selected disabled>Select</option>
                                 <option value="1" >Solo</option>
                                 <option value="2">Team</option>
                                 <option value="3">Continent</option>
@@ -286,7 +372,7 @@
                         <div class="col-md-3">
                             <label>Filter</label>
                             <select class="form-control" id="filter">
-                                <option selected disabled >Select</option>
+                                <option selected disabled>Select</option>
                                 <option value="Ride">Cycling</option>
                                 <option value="Run">Running</option>
                                 <option value="Yoga">Yoga</option>
@@ -305,7 +391,17 @@
                 $('#single').show();
                 $('#team').hide();
                 window.location.href="<?=$fullURL?>"+"&run_type="+Type_; 
-
+              // if(Type_==1){
+              //   var t="solo";
+              //   $('#single').show();
+              //   $('#team').hide();
+              
+              // }else{
+              //   var t="team";
+              //   $('#single').hide();
+              //   $('#team').show();
+                
+              // }
             });
           </script>
         </div>
@@ -450,7 +546,14 @@
       </div>
        <script type="text/javascript"> 
           $(document).ready(function() {
-          
+            //   $('#example').DataTable( {
+            //       dom: 'Bfrtip',
+            //       buttons: [
+            //           'csv', 'excel', 'pdf', 'print'
+            //       ],
+            //       "order": [[ 2, "desc" ]]
+            //   } );
+              
                var m = $('#example').DataTable( {
                   dom: 'Bfrtip',
                   buttons: [
@@ -512,7 +615,25 @@
                         cell.innerHTML = i+1;
                     } );
                 } ).draw();
-               
+                // t.on( 'order.dt search.dt buttons.dt', function () {
+                //     t.column(0, {search:'applied', order:'applied', buttons:'applied'}).nodes().each( function (cell, i) {
+                //         cell.innerHTML = i+1;
+                //     } );
+                // } ).draw();
+              
+              // $('#team').DataTable( {
+              //     dom: 'Bfrtip',
+              //     buttons: [
+              //         'csv', 'excel', 'pdf', 'print'
+              //     ],
+              //     "order": [[ 3, "desc" ]]
+              // } );
+            //   $('#eventRanking').DataTable( {
+            //       dom: 'Bfrtip',
+            //       buttons: [
+            //           'copy', 'csv', 'excel', 'pdf', 'print'
+            //       ]
+            //   } );
           } );
         </script>
   <div id="myPreLoader" class="modal fade" role="dialog">
