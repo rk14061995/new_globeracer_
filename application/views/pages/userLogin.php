@@ -221,16 +221,29 @@
                 <input type="text" name="first-name" id="first-name" class="form-control" placeholder="First name" required="" autofocus="">
                 <input type="text" name="middle-name" id="middle-name" class="form-control" placeholder="Middle name" >
                 <input type="text" name="last-name" id="last-name" class="form-control" placeholder="Last name" required="" autofocus="">
-                 <input type="text" name="contact_no" id="contact_no" class="form-control" placeholder="Contact No" required="" autofocus="">
+                <div class="col-md-12" style="display: flex;">
+                    <div class="col-md-4" >
+                        <select name="phncode" style="margin-left: -30px;"class="form-control" >Ph. Code
+                            <option selected value="+91">+91</option>
+                            <option value="+1">+1</option>
+                            <option value="+49">+49</option>
+                            <option  value="+974">+974</option>
+                        </select>
+                    </div>
+                    <div class="col-md-8" style="margin-left: -56px;">
+                        <input type="text" name="contact_no" id="contact_no" class="form-control" placeholder="Contact No" required="" autofocus="">
+                    </div>
+                </div>
+              
                 <input type="email" name="user-email" id="user-email" class="form-control" placeholder="Email address" required autofocus="">
                 <input type="password" name="user-pass" id="user-pass" class="form-control" placeholder="Password" required autofocus="">
                 <!--<input type="password" name="user-repeatpass" id="user-repeatpass" class="form-control" placeholder="Repeat Password" required autofocus="">-->
-                <select class="form-control" name="user_type">
-                    <option>Select User Type</option>
-                    <option value="1" selected>Normal</option>
-                    <!--<option value="2">NGO</option>-->
-                    <!--<option value="3">Coaches_Nutritionist</option>-->
-                    <!--<option value="4">Admin</option>-->
+                <select required class="form-control" name="user_type">
+                    <option>Select Gender</option>
+                    <option value="1" >Male</option>
+                    <option value="2">Female</option>
+                    <option value="3">Other</option>
+                    <option value="4">PreferSay</option>
                 </select>
                 <!--<input type="text" name="current_location" id="current_location" class="form-control" placeholder="Current Location"  autofocus="">-->
                 <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>

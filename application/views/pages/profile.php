@@ -63,7 +63,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-5 text-center">
-                                    <input type="text" class="form-control" name="country_code" value="+91-" placeholder="+91-" >
+                                    <input type="text" class="form-control" name="country_code" value="<?=$user_Data->country_code?>" >
                                     <!--<select class="js-example-basic-single form-control"  name="country_code " id="country_code">-->
                                     <!--  <option value="0">Select</option>-->
                                     <!--</select>-->
