@@ -407,7 +407,7 @@
 							"user_email"=>$this->input->post('user-email'),
 							"user_password"=>base64_encode($this->input->post('user-pass')),
 							"contact_no"=>$this->input->post('contact_no'),
-							"user_type"=>$this->input->post('user_type'),
+							
 							"sex"=>$this->input->post('user_type'),
 							"continent_name"=>$continent_name,
 							"country_code"=>$this->input->post('phncode')
