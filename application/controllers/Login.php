@@ -408,8 +408,12 @@
 							"user_password"=>base64_encode($this->input->post('user-pass')),
 							"contact_no"=>$this->input->post('contact_no'),
 							"user_type"=>$this->input->post('user_type'),
+							"sex"=>$this->input->post('user_type'),
 							"continent_name"=>$continent_name,
+							"country_code"=>$this->input->post('phncode')
 						);
+			// print_r($data);
+			// die;
 			$res=$this->USERM->createUserAccount($data);
 			switch ($res) {
 				case 0:
