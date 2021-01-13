@@ -15,45 +15,38 @@
 			$data['event_id']=$event_id;
 			$eventDetails=$this->db->where('event_id',$event_id)->get('userevents')->row();
 			$start_date=$eventDetails->event_start_date;
-            $end_date=$eventDetails->event_end_date;	
-			if($this->input->get('_for_')){
-				// echo 'For passed';
-				$for_date=$this->input->get('_for_');
-                $condition=array(
-                                "race_registeration.event_id"=>$event_id,
-                                "race_registeration.to_show"=>1,
-                                "event_details.start_date ="=>$for_date,
-                            );
-			}else{
-                $for_date=$end_date;
-                $condition=array(
-                                "race_registeration.event_id"=>$event_id,
-                                "race_registeration.to_show"=>1,
-                                "event_details.start_date >="=>$start_date,
-                                "event_details.start_date <="=>$end_date,
-                                "race_registeration.amoun_status"=>'Paid'
-                            );
-            }
+            $end_date=$eventDetails->event_end_date;
+            $final_condition=array();
             $teamArray=array();
-            if($this->input->get('type') && $this->input->get('type')=='team'){
-                
-                $team_data=array();
-                $condition=array(
+            $team_data=array();
+            $condition=array(
                                 "race_registeration.event_id"=>$event_id,
                                 "race_registeration.to_show"=>1,
-                                // "event_details.start_date >="=>$start_date,
-                                // "event_details.start_date <="=>$end_date,
-                                "race_registeration.amoun_status"=>'Paid',
-                                "team_details.team_name!="=>"Solo"
-                            );
-                $all_teams=$this->db
+                                "race_registeration.amoun_status"=>'Paid'
+                            );           
+            if($date=$this->input->get('_for_')){
+               
+                $final_condition=array_merge($condition,array('event_details.start_date'=>$date));    
+            }else{
+               $date=date('Y-m-d');
+               $final_condition=array_merge($condition,array('event_details.start_date'=>$date));
+            }
+            // print_r($final_condition);
+           
+            if($u_type=$this->input->get('type')){
+                if($u_type=='team'){
+                    $final_condition=array_merge($final_condition,array('team_details.team_name!='=>"Solo"));
+                }     
+            }
+            // print_r($final_condition);
+            $all_teams=$this->db
                                 ->select('SUM(event_details.distance) as team_distance, team_details.team_id, team_details.team_name')
                                 ->join('race_registeration', 'team_details.team_id = race_registeration.team_id', 'left')
                                 ->join('user_details','user_details.id_table=race_registeration.user_id')
                                 ->order_by('team_distance','desc')
                                 ->join('event_details','event_details.user_email=user_details.user_email')
                                 ->group_by('team_details.team_id')
-                                ->where($condition)
+                                ->where($final_condition)
                                 ->get('team_details')->result();
                                 $i=1;
                 foreach($all_teams as $tm){
@@ -61,9 +54,6 @@
                     $i++;
                     array_push($team_data,$tm->team_id);
                 }
-                // print_r($teamArray);
-                // echo '  --------------------------------------------------------------- ';
-                // print_r($team_data);
                 $teams=$this->db->where('team_name!=','Solo')->get('team_details')->result();
                 foreach($teams as $t_m_){
                     if (in_array($t_m_->team_id, $team_data)){
@@ -73,13 +63,8 @@
                       array_push($teamArray,array("rank"=>0,"team_id"=>$t_m_->team_id,"team_distance"=>0,"team_name"=>$t_m_->team_name));
                     }
                 }
-            }
-            // die;
             $data['team_data']=$teamArray;
-            // print_r($teamArray);
-            // echo '**********************************************************************';
-            // print_r($all_teams);
-			$data['for_']=$for_date;
+			$data['for_']=$date;
         	// die;
             $data['min_date']=$start_date;
             $data['max_date']=$end_date;   
@@ -101,18 +86,7 @@
         		        ->get('race_registeration')->result();
         	// echo '<table border="1">';
         	$i=1;
-        	
         	foreach($particpants as $user){
-
-        		// echo '<tr>';
-        		// echo '<td>'.$i.'</td>';
-        		// echo '<td>'.$user->firstname.' '.$user->middle_name.' '.$user->lastname.'</td>';
-        		
-        		// echo '<td>'.($user->user_distance/1000).'km</td>';
-        		// echo '<td>'.$user->api_id.'</td>';
-        		// echo '</tr>';
-        		
-
         		array_push($reacResult, array(
         										'name'=>$user->firstname.' '.$user->middle_name.' '.$user->lastname,
         										'team_name'=>$user->team_name,
@@ -126,12 +100,7 @@
         									));
 
         		$i++;
-
-
         	}
-
-        	// echo '</table>';
-        	// die;
         	$data['event_name']=$eventDetails->event_name;
         	$data['eventResult']=$reacResult;
         	$data['userSessionData']=unserialize($this->session->userdata('adminData'));

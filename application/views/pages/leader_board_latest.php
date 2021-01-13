@@ -54,6 +54,21 @@
     }
 </style>
 <script>
+ $(document).ready(function(){
+    var urlParams = new URLSearchParams(window.location.search); //get all parameters
+    console.log(urlParams);
+    // var foo = urlParams.get('foo'); //extract the foo parameter - this will return NULL if foo isn't a parameter
+
+    // if(foo) { //check if foo parameter is set to anything
+    //     alert('FOO EXISTS');
+    // }
+
+    // if(foo == 'bar') { //check if foo parameter is 'bar'
+    //     alert('FOO == BAR');
+    // } 
+ });
+
+
   $(document).on('submit','#viewResult',function(e){
       e.preventDefault();
       var event_id=$('#evtName_').val();
