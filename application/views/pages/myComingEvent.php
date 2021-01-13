@@ -54,7 +54,7 @@
             echo '<div class="col-md-12"><div class="alert alert-danger">No Events Found.</div></div>';
           } ?>
         </div>
-        <!-- <div class="row">
+        <div class="row">
 
           <div class="col-md-12">
             <div class="card">
@@ -75,7 +75,9 @@
                       <th>
                         Scheduled On
                       </th>
-                    
+                      <th class="text-right">
+                        Distance
+                      </th>
                       <th class="text-right">
                         Total Participants
                       </th>
@@ -84,17 +86,27 @@
                       <?php foreach($events as $evt):?>
                         <tr>
                           <td>
-                            Marathon
+                            <a href="<?=base_url('User/myEventActivities/').$evt['event']->event_id?>"><?=ucwords($evt['event']->event_name)?></a>
                           </td>
                           <td>
-                           Ahemdabad, Gujrat, India
+                           <?=$evt['event']->event_venue?>
                           </td>
                           <td>
-                            26, December 2020
+                           <?=date('d-m-Y',$evt['event']->event_start_date).'<span class="text-danger font-weight-bold"> -- To -- </span>'.date('d-m-Y',$evt['event']->event_end_date)?>
+                            
+                          </td>
+                          <td>
+                            <?php 
+                              if($evt['distanceSum']==0){
+                                   echo '<label>Covered : </label>(0) Km ';
+                               }else{
+                                   echo '<label>Covered : </label>'. $evt['distanceSum']/1000 . ' Km ';
+                               }
+                             ?>
                           </td>
                           
                           <td class="text-right">
-                            36,738
+                            <a href="<?=base_url('User/myEventActivities/').$evt['event']->event_id?>">View Activities</a>
                           </td>
                         </tr>
                       <?php endforeach; ?>
@@ -106,6 +118,6 @@
             </div>
           </div>
           
-        </div> -->
+        </div>
       </div>
   
