@@ -500,7 +500,7 @@
                 <div class="tab-content">
                   <div id="cate" class="tab-pane active">
                     <div class="table-responsive">
-                      <table class="display" id="team" style="width: 100%" border="1">
+                      <table class="display" id="commutativeTeam" style="width: 100%" border="1">
                         <thead class=" text-primary">
                           <th class="text-center">
                             S.No
@@ -567,7 +567,9 @@
                     
                     "order": [[ 3, 'desc' ]]
                 } );
-                
+
+              
+
                 m.on( 'order.dt search.dt buttons.dt', function () {
                     m.column(0, {search:'applied', order:'applied', buttons:'applied'}).nodes().each( function (cell, i) {
                         cell.innerHTML = i+1;
@@ -592,7 +594,26 @@
                 } );
 
 
-             
+                var oo =  $('#commutativeTeam').DataTable( {
+                  dom: 'Bfrtip',
+                  buttons: [
+                      'csv', 'excel', 'pdf', 'print'
+                  ],
+                    "columnDefs": [ {
+                        "searchable": false,
+                        "orderable": false,
+                        "targets": 0
+                    } ],
+                    
+                    
+                    "order": [[ 3, 'desc' ]]
+                } );
+
+                oo.on( 'order.dt search.dt buttons.dt', function () {
+                    oo.column(0, {search:'applied', order:'applied', buttons:'applied'}).nodes().each( function (cell, i) {
+                        cell.innerHTML = i+1;
+                    } );
+                } ).draw();
                 // t.on( 'order.dt search.dt buttons.dt', function () {
                 //     t.column(0, {search:'applied', order:'applied', buttons:'applied'}).nodes().each( function (cell, i) {
                 //         cell.innerHTML = i+1;
