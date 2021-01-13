@@ -376,21 +376,15 @@
 			$condition=array(
 								"user_email"=>$this->input->post('user_email'),
 								"user_password"=>base64_encode($this->input->post('user_pwd')),
-
 							);
 			$res=$this->USERM->userLoginValidate($condition);
 			if($res){
-				$sessionData=unserialize($this->session->userdata('userData'));
-				if($sessionData[0]->user_type!='Admin'){
-					redirect('User');
-				}else{
-					redirect('Events');
-				}
-				
+				redirect('User');
 			}else{
 			    $this->session->set_flashdata('err','Invalid Email/Password');
 				redirect('userLogin');
 			}
+			 
 		}
 		
 		public function userSignUp(){

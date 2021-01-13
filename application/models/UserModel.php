@@ -89,8 +89,13 @@
 		
 		public function userLoginValidate($data){
 			if(count($user=$this->db->where($data)->get('user_details')->result())>0){
-				$this->session->set_userdata('userData',serialize($user));
-				return true; 
+				$fetchdata=$this->db->where($data)->get('user_details')->result();
+				if($fetchdata[0]->user_type!="Admin"){
+					$this->session->set_userdata('userData',serialize($user));
+					return true; 
+				}else{
+					return false;
+				}
 			}else{
 				return false;
 			}
