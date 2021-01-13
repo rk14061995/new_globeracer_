@@ -14,7 +14,13 @@
 		public function selectEvent(){
 			$data['userSessionData']=unserialize($this->session->userdata('userData'));
 		    $user_id=$data['userSessionData'][0]->user_id;
-		    $data['events']=$this->db->order_by('event_id','desc')->get('userevents')->result();
+            $id_table=$data['userSessionData'][0]->id_table;
+		    $data['events']=$this->db
+                                
+                                ->join('race_registeration','race_registeration.event_id=userevents.event_id')
+                                ->where('race_registeration.user_id',$id_table)
+                                ->order_by('userevents.event_id','desc')
+                                ->get('userevents')->result();
 			$this->load->view('layout/headerUser',$data);
 			$this->load->view('pages/selectEventUser');
 			$this->load->view('layout/footer');
@@ -614,7 +620,7 @@
 			redirect('User');
 	        curl_close($curl);
 		}
-		public function myUpComing(){
+		public function my_all_events(){
 		  
 		    $data['userSessionData']=unserialize($this->session->userdata('userData'));
 		    $user_id=$data['userSessionData'][0]->id_table;

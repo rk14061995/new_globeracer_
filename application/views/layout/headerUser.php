@@ -105,7 +105,7 @@
           <!--  </a>-->
           <!--</li>-->
           <li>
-            <a href="<?=base_url('User/myUpComing')?>" class="font-weight-bold">
+            <a href="<?=base_url('User/my_all_events')?>" class="font-weight-bold">
               <i class="nc-icon nc-single-02"></i>
               <p style="color: maroon;">My Order</p>
             </a>

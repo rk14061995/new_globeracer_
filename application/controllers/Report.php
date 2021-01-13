@@ -781,7 +781,7 @@
 			$this->db->join('userevents','userevents.event_id = race_registeration.event_id');
 			$this->db->join('user_details','user_details.id_table = race_registeration.user_id');
 			$res = $this->db->group_by('race_registeration.reg_id')->get('race_registeration')->result_array();
-			print_r($res);
+		//	print_r($res);
 			$eventArray =array();
 			foreach($res as $result){
 				if($result['athlete_id']){
