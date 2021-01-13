@@ -1,0 +1,7 @@
+1. import event_details table add column user_email.
+
+2. update myUpComing(), MyEvents(), myEventActivities() functions in User Controller.
+
+3. 
+
+SELECT userevents.event_name, count(race_registeration.reg_id) as totalcn,SUM(event_details.distance) as km  FROM `race_registeration`  join userevents on userevents.event_id = race_registeration.event_id left join user_details on user_details.id_table = race_registeration.user_id left join event_details on user_details.user_id=event_details.athlete_id WHERE `race_registeration`.`to_show` = 1 AND `race_registeration`.`amoun_status` = 'Paid' GROUP BY race_registeration.event_id
